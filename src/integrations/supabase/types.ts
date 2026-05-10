@@ -14,16 +14,183 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      applications: {
+        Row: {
+          assigned_limit: number | null
+          company_name: string | null
+          contract_signed: boolean
+          created_at: string
+          decided_at: string | null
+          expected_monthly_volume: number | null
+          guarantee_approved: boolean
+          id: string
+          manager_email: string | null
+          manager_phone: string | null
+          review_notes: string | null
+          status: Database["public"]["Enums"]["application_status"]
+          submitted_at: string | null
+          type: Database["public"]["Enums"]["application_type"]
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          assigned_limit?: number | null
+          company_name?: string | null
+          contract_signed?: boolean
+          created_at?: string
+          decided_at?: string | null
+          expected_monthly_volume?: number | null
+          guarantee_approved?: boolean
+          id?: string
+          manager_email?: string | null
+          manager_phone?: string | null
+          review_notes?: string | null
+          status?: Database["public"]["Enums"]["application_status"]
+          submitted_at?: string | null
+          type: Database["public"]["Enums"]["application_type"]
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          assigned_limit?: number | null
+          company_name?: string | null
+          contract_signed?: boolean
+          created_at?: string
+          decided_at?: string | null
+          expected_monthly_volume?: number | null
+          guarantee_approved?: boolean
+          id?: string
+          manager_email?: string | null
+          manager_phone?: string | null
+          review_notes?: string | null
+          status?: Database["public"]["Enums"]["application_status"]
+          submitted_at?: string | null
+          type?: Database["public"]["Enums"]["application_type"]
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      documents: {
+        Row: {
+          application_id: string
+          file_name: string | null
+          file_path: string
+          id: string
+          kind: Database["public"]["Enums"]["document_kind"]
+          uploaded_at: string
+        }
+        Insert: {
+          application_id: string
+          file_name?: string | null
+          file_path: string
+          id?: string
+          kind: Database["public"]["Enums"]["document_kind"]
+          uploaded_at?: string
+        }
+        Update: {
+          application_id?: string
+          file_name?: string | null
+          file_path?: string
+          id?: string
+          kind?: Database["public"]["Enums"]["document_kind"]
+          uploaded_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "documents_application_id_fkey"
+            columns: ["application_id"]
+            isOneToOne: false
+            referencedRelation: "applications"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          company_name: string | null
+          created_at: string
+          full_name: string | null
+          id: string
+          phone: string | null
+          preferred_lang: string
+          updated_at: string
+        }
+        Insert: {
+          company_name?: string | null
+          created_at?: string
+          full_name?: string | null
+          id: string
+          phone?: string | null
+          preferred_lang?: string
+          updated_at?: string
+        }
+        Update: {
+          company_name?: string | null
+          created_at?: string
+          full_name?: string | null
+          id?: string
+          phone?: string | null
+          preferred_lang?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "merchant" | "buyer" | "credit" | "legal" | "admin"
+      application_status:
+        | "draft"
+        | "submitted"
+        | "credit_review"
+        | "legal_review"
+        | "contract_pending"
+        | "onboarded"
+        | "rejected"
+      application_type: "merchant" | "buyer"
+      document_kind:
+        | "commercial_registration"
+        | "poa_or_id"
+        | "vat_certificate"
+        | "national_address"
+        | "iban_letter"
+        | "sales_ledger_6mo"
+        | "owner_bank_6mo"
+        | "company_bank_2yr"
+        | "vat_returns_1yr"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +317,29 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["merchant", "buyer", "credit", "legal", "admin"],
+      application_status: [
+        "draft",
+        "submitted",
+        "credit_review",
+        "legal_review",
+        "contract_pending",
+        "onboarded",
+        "rejected",
+      ],
+      application_type: ["merchant", "buyer"],
+      document_kind: [
+        "commercial_registration",
+        "poa_or_id",
+        "vat_certificate",
+        "national_address",
+        "iban_letter",
+        "sales_ledger_6mo",
+        "owner_bank_6mo",
+        "company_bank_2yr",
+        "vat_returns_1yr",
+      ],
+    },
   },
 } as const
