@@ -9,38 +9,138 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedOnboardingRouteImport } from './routes/_authenticated/onboarding'
+import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedQueueLegalRouteImport } from './routes/_authenticated/queue.legal'
+import { Route as AuthenticatedQueueCreditRouteImport } from './routes/_authenticated/queue.credit'
+import { Route as AuthenticatedCaseIdRouteImport } from './routes/_authenticated/case.$id'
 
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRoute = AuthenticatedRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedOnboardingRoute = AuthenticatedOnboardingRouteImport.update({
+  id: '/onboarding',
+  path: '/onboarding',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedQueueLegalRoute = AuthenticatedQueueLegalRouteImport.update({
+  id: '/queue/legal',
+  path: '/queue/legal',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedQueueCreditRoute =
+  AuthenticatedQueueCreditRouteImport.update({
+    id: '/queue/credit',
+    path: '/queue/credit',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedCaseIdRoute = AuthenticatedCaseIdRouteImport.update({
+  id: '/case/$id',
+  path: '/case/$id',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
+  '/onboarding': typeof AuthenticatedOnboardingRoute
+  '/case/$id': typeof AuthenticatedCaseIdRoute
+  '/queue/credit': typeof AuthenticatedQueueCreditRoute
+  '/queue/legal': typeof AuthenticatedQueueLegalRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
+  '/dashboard': typeof AuthenticatedDashboardRoute
+  '/onboarding': typeof AuthenticatedOnboardingRoute
+  '/case/$id': typeof AuthenticatedCaseIdRoute
+  '/queue/credit': typeof AuthenticatedQueueCreditRoute
+  '/queue/legal': typeof AuthenticatedQueueLegalRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteWithChildren
+  '/login': typeof LoginRoute
+  '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
+  '/_authenticated/onboarding': typeof AuthenticatedOnboardingRoute
+  '/_authenticated/case/$id': typeof AuthenticatedCaseIdRoute
+  '/_authenticated/queue/credit': typeof AuthenticatedQueueCreditRoute
+  '/_authenticated/queue/legal': typeof AuthenticatedQueueLegalRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/login'
+    | '/dashboard'
+    | '/onboarding'
+    | '/case/$id'
+    | '/queue/credit'
+    | '/queue/legal'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/login'
+    | '/dashboard'
+    | '/onboarding'
+    | '/case/$id'
+    | '/queue/credit'
+    | '/queue/legal'
+  id:
+    | '__root__'
+    | '/'
+    | '/_authenticated'
+    | '/login'
+    | '/_authenticated/dashboard'
+    | '/_authenticated/onboarding'
+    | '/_authenticated/case/$id'
+    | '/_authenticated/queue/credit'
+    | '/_authenticated/queue/legal'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
+  LoginRoute: typeof LoginRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,22 +148,69 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/onboarding': {
+      id: '/_authenticated/onboarding'
+      path: '/onboarding'
+      fullPath: '/onboarding'
+      preLoaderRoute: typeof AuthenticatedOnboardingRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/dashboard': {
+      id: '/_authenticated/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AuthenticatedDashboardRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/queue/legal': {
+      id: '/_authenticated/queue/legal'
+      path: '/queue/legal'
+      fullPath: '/queue/legal'
+      preLoaderRoute: typeof AuthenticatedQueueLegalRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/queue/credit': {
+      id: '/_authenticated/queue/credit'
+      path: '/queue/credit'
+      fullPath: '/queue/credit'
+      preLoaderRoute: typeof AuthenticatedQueueCreditRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/case/$id': {
+      id: '/_authenticated/case/$id'
+      path: '/case/$id'
+      fullPath: '/case/$id'
+      preLoaderRoute: typeof AuthenticatedCaseIdRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
   }
 }
 
+interface AuthenticatedRouteChildren {
+  AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+  AuthenticatedOnboardingRoute: typeof AuthenticatedOnboardingRoute
+  AuthenticatedCaseIdRoute: typeof AuthenticatedCaseIdRoute
+  AuthenticatedQueueCreditRoute: typeof AuthenticatedQueueCreditRoute
+  AuthenticatedQueueLegalRoute: typeof AuthenticatedQueueLegalRoute
+}
+
+const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
+  AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
+  AuthenticatedOnboardingRoute: AuthenticatedOnboardingRoute,
+  AuthenticatedCaseIdRoute: AuthenticatedCaseIdRoute,
+  AuthenticatedQueueCreditRoute: AuthenticatedQueueCreditRoute,
+  AuthenticatedQueueLegalRoute: AuthenticatedQueueLegalRoute,
+}
+
+const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
+  AuthenticatedRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRoute: AuthenticatedRouteWithChildren,
+  LoginRoute: LoginRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
