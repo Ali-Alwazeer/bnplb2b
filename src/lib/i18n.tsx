@@ -5,7 +5,7 @@ export type Lang = "en" | "ar";
 type Dict = Record<string, string>;
 
 const en: Dict = {
-  brand: "Yaqeen BNPL",
+  brand: "BNPL for Business",
   tagline: "Buy Now, Pay Later — built for B2B trade.",
   nav_login: "Sign in",
   nav_signup: "Get started",
@@ -124,7 +124,7 @@ const en: Dict = {
 };
 
 const ar: Dict = {
-  brand: "يقين BNPL",
+  brand: "BNPL for Business",
   tagline: "اشترِ الآن، وادفع لاحقاً — مصمَّم لقطاع B2B.",
   nav_login: "تسجيل الدخول",
   nav_signup: "ابدأ الآن",
