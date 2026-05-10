@@ -16,6 +16,7 @@ import { Route as AuthenticatedOnboardingRouteImport } from './routes/_authentic
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedQueueLegalRouteImport } from './routes/_authenticated/queue.legal'
 import { Route as AuthenticatedQueueCreditRouteImport } from './routes/_authenticated/queue.credit'
+import { Route as AuthenticatedCaseIdRouteImport } from './routes/_authenticated/case.$id'
 
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
@@ -52,12 +53,18 @@ const AuthenticatedQueueCreditRoute =
     path: '/queue/credit',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
+const AuthenticatedCaseIdRoute = AuthenticatedCaseIdRouteImport.update({
+  id: '/case/$id',
+  path: '/case/$id',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/onboarding': typeof AuthenticatedOnboardingRoute
+  '/case/$id': typeof AuthenticatedCaseIdRoute
   '/queue/credit': typeof AuthenticatedQueueCreditRoute
   '/queue/legal': typeof AuthenticatedQueueLegalRoute
 }
@@ -66,6 +73,7 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/onboarding': typeof AuthenticatedOnboardingRoute
+  '/case/$id': typeof AuthenticatedCaseIdRoute
   '/queue/credit': typeof AuthenticatedQueueCreditRoute
   '/queue/legal': typeof AuthenticatedQueueLegalRoute
 }
@@ -76,6 +84,7 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/onboarding': typeof AuthenticatedOnboardingRoute
+  '/_authenticated/case/$id': typeof AuthenticatedCaseIdRoute
   '/_authenticated/queue/credit': typeof AuthenticatedQueueCreditRoute
   '/_authenticated/queue/legal': typeof AuthenticatedQueueLegalRoute
 }
@@ -86,6 +95,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/dashboard'
     | '/onboarding'
+    | '/case/$id'
     | '/queue/credit'
     | '/queue/legal'
   fileRoutesByTo: FileRoutesByTo
@@ -94,6 +104,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/dashboard'
     | '/onboarding'
+    | '/case/$id'
     | '/queue/credit'
     | '/queue/legal'
   id:
@@ -103,6 +114,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/_authenticated/dashboard'
     | '/_authenticated/onboarding'
+    | '/_authenticated/case/$id'
     | '/_authenticated/queue/credit'
     | '/_authenticated/queue/legal'
   fileRoutesById: FileRoutesById
@@ -164,12 +176,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedQueueCreditRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/case/$id': {
+      id: '/_authenticated/case/$id'
+      path: '/case/$id'
+      fullPath: '/case/$id'
+      preLoaderRoute: typeof AuthenticatedCaseIdRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
   }
 }
 
 interface AuthenticatedRouteChildren {
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedOnboardingRoute: typeof AuthenticatedOnboardingRoute
+  AuthenticatedCaseIdRoute: typeof AuthenticatedCaseIdRoute
   AuthenticatedQueueCreditRoute: typeof AuthenticatedQueueCreditRoute
   AuthenticatedQueueLegalRoute: typeof AuthenticatedQueueLegalRoute
 }
@@ -177,6 +197,7 @@ interface AuthenticatedRouteChildren {
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedOnboardingRoute: AuthenticatedOnboardingRoute,
+  AuthenticatedCaseIdRoute: AuthenticatedCaseIdRoute,
   AuthenticatedQueueCreditRoute: AuthenticatedQueueCreditRoute,
   AuthenticatedQueueLegalRoute: AuthenticatedQueueLegalRoute,
 }
