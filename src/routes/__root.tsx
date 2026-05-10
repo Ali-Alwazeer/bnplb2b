@@ -75,13 +75,17 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Yaqeen — B2B Buy Now Pay Later" },
+      { title: "B2B Buy Now Pay Later" },
       { name: "description", content: "Verified B2B BNPL platform for KSA merchants and buyers — KYC, credit limits, contracts, and installment settlement." },
       { name: "author", content: "Yaqeen" },
-      { property: "og:title", content: "Yaqeen — B2B Buy Now Pay Later" },
-      { property: "og:description", content: "Verified B2B BNPL platform for KSA merchants and buyers." },
+      { property: "og:title", content: "B2B Buy Now Pay Later" },
+      { property: "og:description", content: "Verified B2B BNPL platform for KSA merchants and buyers — KYC, credit limits, contracts, and installment settlement." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
+      { name: "twitter:title", content: "B2B Buy Now Pay Later" },
+      { name: "twitter:description", content: "Verified B2B BNPL platform for KSA merchants and buyers — KYC, credit limits, contracts, and installment settlement." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/8cda07ef-4192-4561-989d-f9f98ba42520/id-preview-478a8a25--cd68d562-2dcb-47fb-8e8e-229297ddd32c.lovable.app-1778409547729.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/8cda07ef-4192-4561-989d-f9f98ba42520/id-preview-478a8a25--cd68d562-2dcb-47fb-8e8e-229297ddd32c.lovable.app-1778409547729.png" },
     ],
     links: [
       {
