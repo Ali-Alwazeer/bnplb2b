@@ -39,12 +39,12 @@ function Index() {
                 </p>
                 <div className="mt-10 flex flex-wrap gap-3">
                   <Button asChild size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90">
-                    <Link to="/signup">
+                    <Link to="/signup" search={{ role: "buyer" }}>
                       {t("cta_become_buyer")} <ArrowRight className="ms-2 h-4 w-4" />
                     </Link>
                   </Button>
                   <Button asChild size="lg" variant="outline" className="border-primary/30">
-                    <Link to="/signup">{t("cta_become_merchant")}</Link>
+                    <Link to="/signup" search={{ role: "merchant" }}>{t("cta_become_merchant")}</Link>
                   </Button>
                 </div>
               </div>
