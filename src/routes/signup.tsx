@@ -33,7 +33,7 @@ function SignupPage() {
       email,
       password,
       options: {
-        emailRedirectTo: `${window.location.origin}/dashboard`,
+        emailRedirectTo: `${window.location.origin}/onboarding`,
         data: {
           full_name: fullName,
           phone,
@@ -50,7 +50,7 @@ function SignupPage() {
     }
     await refreshRoles();
     toast.success(t("ob_submitted"));
-    navigate({ to: "/dashboard" });
+    navigate({ to: "/onboarding" });
   };
 
   return (
