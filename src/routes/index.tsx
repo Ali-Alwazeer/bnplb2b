@@ -104,8 +104,8 @@ function Index() {
         <section className="mx-auto max-w-7xl px-6 py-24">
           <div className="grid gap-6 md:grid-cols-2">
             {[
-              { title: t("for_merchants"), desc: t("for_merchants_desc"), cta: t("cta_become_merchant") },
-              { title: t("for_buyers"), desc: t("for_buyers_desc"), cta: t("cta_become_buyer") },
+              { title: t("for_merchants"), desc: t("for_merchants_desc"), cta: t("cta_become_merchant"), role: "merchant" as const },
+              { title: t("for_buyers"), desc: t("for_buyers_desc"), cta: t("cta_become_buyer"), role: "buyer" as const },
             ].map((card) => (
               <div
                 key={card.title}
@@ -114,7 +114,7 @@ function Index() {
                 <h2 className="font-display text-3xl font-semibold tracking-tight">{card.title}</h2>
                 <p className="mt-3 max-w-md text-muted-foreground">{card.desc}</p>
                 <Button asChild variant="ghost" className="mt-6 px-0 text-emerald-deep hover:bg-transparent">
-                  <Link to="/signup">
+                  <Link to="/signup" search={{ role: card.role }}>
                     {card.cta} <ArrowRight className="ms-1.5 h-4 w-4" />
                   </Link>
                 </Button>
