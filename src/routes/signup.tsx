@@ -8,9 +8,11 @@ import { SiteHeader } from "@/components/site-header";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 export const Route = createFileRoute("/signup")({
+  validateSearch: (search: Record<string, unknown>) => ({
+    role: search.role === "merchant" || search.role === "buyer" ? search.role : "buyer",
+  }),
   component: SignupPage,
 });
 
@@ -18,12 +20,12 @@ function SignupPage() {
   const { t, lang } = useI18n();
   const navigate = useNavigate();
   const { refreshRoles } = useAuth();
+  const { role } = Route.useSearch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");
   const [phone, setPhone] = useState("");
   const [company, setCompany] = useState("");
-  const [role, setRole] = useState<"merchant" | "buyer">("merchant");
   const [loading, setLoading] = useState(false);
 
   const onSubmit = async (e: FormEvent) => {
@@ -60,21 +62,11 @@ function SignupPage() {
         <div>
           <h1 className="font-display text-4xl font-semibold tracking-tight">{t("signup_title")}</h1>
           <p className="mt-2 text-sm text-muted-foreground">{t("signup_sub")}</p>
+          <p className="mt-3 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/5 px-3 py-1 text-xs font-medium text-emerald-deep">
+            {role === "merchant" ? t("role_merchant") : t("role_buyer")}
+          </p>
         </div>
         <form onSubmit={onSubmit} className="space-y-4 rounded-xl border border-border bg-card p-6 shadow-[var(--shadow-card)]">
-          <div className="space-y-2">
-            <Label>{t("field_role")}</Label>
-            <RadioGroup value={role} onValueChange={(v) => setRole(v as "merchant" | "buyer")} className="grid grid-cols-2 gap-2">
-              <label className={`flex cursor-pointer items-center gap-2 rounded-md border px-3 py-2 text-sm ${role === "merchant" ? "border-primary bg-primary/5" : "border-border"}`}>
-                <RadioGroupItem value="merchant" id="role-merchant" />
-                <span>{t("role_merchant")}</span>
-              </label>
-              <label className={`flex cursor-pointer items-center gap-2 rounded-md border px-3 py-2 text-sm ${role === "buyer" ? "border-primary bg-primary/5" : "border-border"}`}>
-                <RadioGroupItem value="buyer" id="role-buyer" />
-                <span>{t("role_buyer")}</span>
-              </label>
-            </RadioGroup>
-          </div>
           <div className="space-y-2">
             <Label htmlFor="full_name">{t("field_full_name")}</Label>
             <Input id="full_name" required value={fullName} onChange={(e) => setFullName(e.target.value)} />

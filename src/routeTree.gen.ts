@@ -18,6 +18,7 @@ import { Route as AuthenticatedDashboardRouteImport } from './routes/_authentica
 import { Route as AuthenticatedQueueLegalRouteImport } from './routes/_authenticated/queue.legal'
 import { Route as AuthenticatedQueueCreditRouteImport } from './routes/_authenticated/queue.credit'
 import { Route as AuthenticatedCaseIdRouteImport } from './routes/_authenticated/case.$id'
+import { Route as AuthenticatedAdminUsersRouteImport } from './routes/_authenticated/admin.users'
 
 const SignupRoute = SignupRouteImport.update({
   id: '/signup',
@@ -64,6 +65,11 @@ const AuthenticatedCaseIdRoute = AuthenticatedCaseIdRouteImport.update({
   path: '/case/$id',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
+const AuthenticatedAdminUsersRoute = AuthenticatedAdminUsersRouteImport.update({
+  id: '/admin/users',
+  path: '/admin/users',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -71,6 +77,7 @@ export interface FileRoutesByFullPath {
   '/signup': typeof SignupRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/onboarding': typeof AuthenticatedOnboardingRoute
+  '/admin/users': typeof AuthenticatedAdminUsersRoute
   '/case/$id': typeof AuthenticatedCaseIdRoute
   '/queue/credit': typeof AuthenticatedQueueCreditRoute
   '/queue/legal': typeof AuthenticatedQueueLegalRoute
@@ -81,6 +88,7 @@ export interface FileRoutesByTo {
   '/signup': typeof SignupRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
   '/onboarding': typeof AuthenticatedOnboardingRoute
+  '/admin/users': typeof AuthenticatedAdminUsersRoute
   '/case/$id': typeof AuthenticatedCaseIdRoute
   '/queue/credit': typeof AuthenticatedQueueCreditRoute
   '/queue/legal': typeof AuthenticatedQueueLegalRoute
@@ -93,6 +101,7 @@ export interface FileRoutesById {
   '/signup': typeof SignupRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
   '/_authenticated/onboarding': typeof AuthenticatedOnboardingRoute
+  '/_authenticated/admin/users': typeof AuthenticatedAdminUsersRoute
   '/_authenticated/case/$id': typeof AuthenticatedCaseIdRoute
   '/_authenticated/queue/credit': typeof AuthenticatedQueueCreditRoute
   '/_authenticated/queue/legal': typeof AuthenticatedQueueLegalRoute
@@ -105,6 +114,7 @@ export interface FileRouteTypes {
     | '/signup'
     | '/dashboard'
     | '/onboarding'
+    | '/admin/users'
     | '/case/$id'
     | '/queue/credit'
     | '/queue/legal'
@@ -115,6 +125,7 @@ export interface FileRouteTypes {
     | '/signup'
     | '/dashboard'
     | '/onboarding'
+    | '/admin/users'
     | '/case/$id'
     | '/queue/credit'
     | '/queue/legal'
@@ -126,6 +137,7 @@ export interface FileRouteTypes {
     | '/signup'
     | '/_authenticated/dashboard'
     | '/_authenticated/onboarding'
+    | '/_authenticated/admin/users'
     | '/_authenticated/case/$id'
     | '/_authenticated/queue/credit'
     | '/_authenticated/queue/legal'
@@ -203,12 +215,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedCaseIdRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/admin/users': {
+      id: '/_authenticated/admin/users'
+      path: '/admin/users'
+      fullPath: '/admin/users'
+      preLoaderRoute: typeof AuthenticatedAdminUsersRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
   }
 }
 
 interface AuthenticatedRouteChildren {
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
   AuthenticatedOnboardingRoute: typeof AuthenticatedOnboardingRoute
+  AuthenticatedAdminUsersRoute: typeof AuthenticatedAdminUsersRoute
   AuthenticatedCaseIdRoute: typeof AuthenticatedCaseIdRoute
   AuthenticatedQueueCreditRoute: typeof AuthenticatedQueueCreditRoute
   AuthenticatedQueueLegalRoute: typeof AuthenticatedQueueLegalRoute
@@ -217,6 +237,7 @@ interface AuthenticatedRouteChildren {
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
   AuthenticatedOnboardingRoute: AuthenticatedOnboardingRoute,
+  AuthenticatedAdminUsersRoute: AuthenticatedAdminUsersRoute,
   AuthenticatedCaseIdRoute: AuthenticatedCaseIdRoute,
   AuthenticatedQueueCreditRoute: AuthenticatedQueueCreditRoute,
   AuthenticatedQueueLegalRoute: AuthenticatedQueueLegalRoute,
