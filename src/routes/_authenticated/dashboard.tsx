@@ -6,7 +6,7 @@ import { useI18n } from "@/lib/i18n";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import type { Application } from "@/lib/types";
-import { CircleDot, FileText, Inbox, Scale } from "lucide-react";
+import { CircleDot, FileText, Inbox, Scale, Users } from "lucide-react";
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
   component: Dashboard,
@@ -128,6 +128,15 @@ function Dashboard() {
                   <div>
                     <div className="font-display text-lg font-semibold">{t("legal_queue_title")}</div>
                     <div className="text-sm text-muted-foreground">Contracts, guarantees, final onboarding.</div>
+                  </div>
+                </Link>
+              )}
+              {role === "admin" && (
+                <Link to="/admin/users" className="group flex items-start gap-3 rounded-xl border border-border p-5 transition-colors hover:border-primary/50">
+                  <Users className="h-5 w-5 text-emerald-mid" />
+                  <div>
+                    <div className="font-display text-lg font-semibold">Users & roles</div>
+                    <div className="text-sm text-muted-foreground">Grant admin, legal, or credit access.</div>
                   </div>
                 </Link>
               )}
